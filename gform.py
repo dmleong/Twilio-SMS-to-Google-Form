@@ -4,11 +4,10 @@ import urllib2
 import re
 import logging
 
-class GFormException(Exception):
+class GoogleFormException(Exception):
     pass
 
-
-class GForm:
+class GoogleForm:
     formkey = ''
     """String containing the value
        of the formkey GET paramater from a Google Form URL"""
@@ -43,10 +42,6 @@ class GForm:
         form = html('#ss-form')
         self.action_url = form.attr['action']
 
-        # Define parameters with default values, if any
-        #for item in html('#ss-form input'):
-        #    self.parameters[item.name] = item.value
-
         # Map out the label to form-input-name relationships
         for item in html.find('.ss-item.ss-text'):
             text_item = pq(item)
@@ -59,9 +54,6 @@ class GForm:
                 #logging.warn(input_label)
 
             if (input_id != ""):
-                #logging.warn(input_id)
-                #logging.warn("Name: {0}".format( input_name ))
-                #logging.warn("Value: {0}".format( input_value ))
                 self.parameters[input_name] = input_value
 
             self.labels[input_label] = input_id
