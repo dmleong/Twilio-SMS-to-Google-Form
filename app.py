@@ -1,11 +1,11 @@
-import os
 from flask import Flask, request, render_template, url_for, redirect
 from urlparse import urlparse
 from gform import GForm
-from exceptions import *
 
 app = Flask(__name__)
-#app.config['DEBUG'] = True
+app.config['DEBUG'] = True
+
+wsgi_app = app
 
 # TO DO:
 #   Given a public URL, give a Twilio URL
@@ -56,8 +56,6 @@ class TestURL:
         try:
             gform = GForm(self.formkey)
         except Exception as inst:
-
-            logging.warn(inst)
 
             message = "Error form at URL, " \
                       "does the URL exist and point to a form?"
@@ -120,7 +118,8 @@ def submit():
                   "and try again."
     except Exception as inst:
         message = "Well, this is embarassing, something went wrong. " \
-                  "Perhaps you can try again?"
+                  "Perhaps you can try again?" \
+                  "{0}".format(inst)
     if valid:
         # Generate the URL that they need to paste on Twilio
         return render_template('base.html',
@@ -153,6 +152,10 @@ def form(formkey):
 
 if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5000.
-    #port = int(os.environ.get('PORT', 5000))
-    #app.run(host='0.0.0.0', port=port)
-    app.run()
+    import os
+    host = os.environ.get('SERVER_HOST', 'localhost')
+    try:
+        port = int(os.environ.get('SERVER_PORT', '5555'))
+    except ValueError:
+        port = 5555
+    app.run(host, port)

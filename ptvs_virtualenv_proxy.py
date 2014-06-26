@@ -1,4 +1,4 @@
- # ############################################################################
+﻿ # ############################################################################
  #
  # Copyright (c) Microsoft Corporation. 
  #
@@ -39,19 +39,6 @@ def log(txt):
             f.write('%s: %s' % (datetime.datetime.now(), txt))
         finally:
             f.close()
-
-ptvsd_secret = os.getenv('WSGI_PTVSD_SECRET')
-if ptvsd_secret:
-    log('Enabling ptvsd ...\n')
-    try:
-        import ptvsd
-        try:
-            ptvsd.enable_attach(ptvsd_secret)
-            log('ptvsd enabled.\n')
-        except: 
-            log('ptvsd.enable_attach failed\n')
-    except ImportError:
-        log('error importing ptvsd.\n');
 
 def get_wsgi_handler(handler_name):
     if not handler_name:
