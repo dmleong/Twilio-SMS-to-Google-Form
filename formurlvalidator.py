@@ -15,17 +15,17 @@ twilio_parameters = set(['SmsSid', 'AccountSid', 'From', 'To', 'Body',
                          'FromCity', 'FromState', 'FromZip', 'FromCountry',
                          'ToCity', 'ToState', 'ToZip', 'ToCountry'])
 
-class FormUrlValidator:
+class FormValidator:
 
     parameters = None
     message = ""
     url = ""
-    failureReason = None
+    failure_reason = None
 
     def __init__(self, url):
 
         self.parameters = None
-        self.failureReason = None
+        self.failure_reason = None
         self.message = ""
         self.url = url
 

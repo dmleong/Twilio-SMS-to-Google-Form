@@ -8,6 +8,7 @@ class GoogleFormException(Exception):
     pass
 
 class GoogleForm:
+
     formkey = ''
     """String containing the value
        of the formkey GET paramater from a Google Form URL"""
@@ -34,10 +35,9 @@ class GoogleForm:
 
         try:
             html = pq(url=form_url)
-
         except Exception as inst:
             logging.warn(inst)
-            raise GFormException("""Error parsing URL '%s', did you pass the correct formkey?""")
+            raise GoogleFormException("Error parsing URL '%s', did you pass the correct formkey?" % inst)
 
         form = html('#ss-form')
         self.action_url = form.attr['action']

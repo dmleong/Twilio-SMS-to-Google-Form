@@ -36,3 +36,4 @@ env
 *.user
 bin/
 obj/
+*.pubxml
