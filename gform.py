@@ -50,9 +50,6 @@ class GoogleForm:
             input_name = text_item.find('input[type=\'text\']').attr('name')
             input_value = text_item.find('input[type=\'text\']').val()
 
-            #if (input_label != ""):
-                #logging.warn(input_label)
-
             if (input_id != ""):
                 self.parameters[input_name] = input_value
 
