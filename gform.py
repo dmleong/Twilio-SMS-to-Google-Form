@@ -51,9 +51,11 @@ class GoogleForm:
             input_value = text_item.find('input[type=\'text\']').val()
 
             if (input_id != ""):
-                self.parameters[input_name] = input_value
-
+                self.parameters[input_id] = input_value
+                
             self.labels[input_label] = input_id
+
+
 
     def show_state(self):
         """Print the contents of the 'paramaters' and 'labels' properties"""
@@ -66,6 +68,9 @@ class GoogleForm:
     def submit(self):
         """Submit the contents of the 'parameters' property
            to the Google Form"""
+
+        url = self.action_url + urllib.urlencode(self.parameters)
+        logging.warn(url)
 
         f = urllib2.urlopen(self.action_url, urllib.urlencode(self.parameters))
         result = pq(f.read())
