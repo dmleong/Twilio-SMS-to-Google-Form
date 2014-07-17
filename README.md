@@ -45,7 +45,9 @@ Get Started
 
 10. You should get a response from the site saying "It worked!"
 
-11. <a name="copy"></a>Copy that URL.
+11. <a name="copy"></a>Copy that URL:
+
+    ![](http://i.imgur.com/9CPWdQe.png)
 
 **Open another browser window.  In that new window:**
 
