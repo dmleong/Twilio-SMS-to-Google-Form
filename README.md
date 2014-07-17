@@ -23,7 +23,7 @@ Get Started
 
 	![Create a Question](http://i.imgur.com/Um5n7pW.png)
 
-4. Repeat step three, adding questions with Question Titles "To", "From" and "Body"  ([other parameters are avaiable as well](http://www.twilio.com/docs/api/twiml/sms/twilio_request)).  This is what your Form should look like:
+4. Repeat step three, adding questions with Question Titles "To", "From" and "Body"  ([other parameters are available as well](http://www.twilio.com/docs/api/twiml/sms/twilio_request)).  This is what your Form should look like:
 
 	![Add additional questions](http://i.imgur.com/N1ZCVvZ.png)
 
@@ -35,19 +35,19 @@ Get Started
 
 	![Click Send Form](http://i.imgur.com/wYmlbgJ.png)
    
-7. Another window will open. Copy the URL from the location bar of that window:
+7. A dialog window will open. Copy the "Link to Share" URL from that window:
 
 	![Copy the Form URL](http://i.imgur.com/VHogL7T.png)
 
 8. Open [TwilioSheet](http://twiliosheet.azurewebsites.net) in a new window.
 
-9. Paste that URL you copied in step 9 into the box on TwilioSheet, then click the "Submit" button.
+9. Paste that URL you copied in step 7 into the box on TwilioSheet, then click the "Submit" button.
 
 10. You should get a response from the site saying "It worked!"
 
 11. <a name="copy"></a>Copy that URL.
 
-**Open another window, in that new window:**
+**Open another browser window.  In that new window:**
 
 1. Log in and go to the "[Numbers](https://www.twilio.com/user/account/phone-numbers)" section of your Twilio account
 
