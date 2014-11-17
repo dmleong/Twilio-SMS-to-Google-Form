@@ -1,114 +1,138 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>TwilioSheet: Twilio SMS to Google Spreadsheet</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <title>TwilioSheet: Twilio SMS to Google Spreadsheet</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+        <!-- Le styles -->
+        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.css" rel="stylesheet">
+        
+        <style>
+        body {
+        padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+        </style>
+    </head>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/static/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/static/ico/apple-touch-icon-57-precomposed.png">
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">TwilioSheet</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Setup</a></li>
-              <!-- <li><a href="#">Help</a></li> -->
-              <li><a href="https://github.com/jpf/Twilio-SMS-to-Google-Form">Source code</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+    <body>
+        
+        <a href="https://github.com/devinrader/TwilioSheet"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 10000" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+        
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">                        
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">TwilioSheet</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="container">
-      <form class="well form-inline" action="/submit" method="POST">
-        <label>Enter the URL for the "live form" that submits to your
-      Google Spreadsheet:</label>
-        <div class="control-group {% if error %}error{% endif %}"> <!-- error here -->
-          <input type="url" name="url" class="span7"
-                 placeholder="https://docs.google.com/spreadsheet/viewform?formkey=aBCdEfG0hIJkLM1NoPQRStuvwxYZAbc2DE#git=0"
-                 {% if url %}
-	         value="{{ url }}"
-	         {% endif %}
-	         />
-        <button type="submit" class="btn">Submit</button>
-      </form>
-      </div>
-      
-      {% if state == 'nothing-submitted' %}
-	<h1>Receive Twilio SMS messages in a Google Spreadsheet</h1>
-	<p>Use Twilio and Google Spreadsheets to build your own
-	applications to do SMS polling, SMS voting, keyword marketing,
-	expense tracking, time tracking, and more.</p>
-      <p>Need help? <a href="https://github.com/jpf/Twilio-SMS-to-Google-Form/blob/master/README.md">See here for instructions</a></p>
-      {% elif state == 'error' %}
-      {{ message }}
-      <br/><br/>
-      Maybe another look at <a href="https://github.com/jpf/Twilio-SMS-to-Google-Form/blob/master/README.md">the instructions</a> would help?
-      {% elif state == 'valid-submission' %}
-      <h2>It worked!</h2>
-      <p>You're almost done.</p>
-      <p>Follow the steps below and when your Twilio number is sent an SMS, 
-         your spreadsheet will be updated with the following information:</p>
-      <ul>
-      {% for parameter in parameters_found %}
-	<li>{{ parameter }}</li>
-      {% endfor %}
-      </ul>
-      
-      Use this URL as the "SMS Request URL" for your Twilio number:<br/> <input type="text" class="span8" value="{{sms_request_url}}" />
-    {% endif %}
-    </div> <!-- /container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well well-lg">
+                        <label for="url">Enter the URL for the "live form" that submits to your Google Spreadsheet:</label>
+                        <form action="/" method="POST">
+                            <div class="input-group {% if error %}haserror{% endif %}">
+                                <!-- error here -->
+                                <input type="url" name="url" class="form-control" placeholder="https://docs.google.com/forms/d/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz/viewform"
+                                       {% if url %}
+                                       value="{{ url }}"
+                                       {% endif %} />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster
-    -->
-    <!-- Commented out for now
-    <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/bootstrap-transition.js"></script>
-    <script src="/static/js/bootstrap-alert.js"></script>
-    <script src="/static/js/bootstrap-modal.js"></script>
-    <script src="/static/js/bootstrap-dropdown.js"></script>
-    <script src="/static/js/bootstrap-scrollspy.js"></script>
-    <script src="/static/js/bootstrap-tab.js"></script>
-    <script src="/static/js/bootstrap-tooltip.js"></script>
-    <script src="/static/js/bootstrap-popover.js"></script>
-    <script src="/static/js/bootstrap-button.js"></script>
-    <script src="/static/js/bootstrap-collapse.js"></script>
-    <script src="/static/js/bootstrap-carousel.js"></script>
-    <script src="/static/js/bootstrap-typeahead.js"></script>
-    -->
-  </body>
+            {% if state == 'nothing-submitted' %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Receive Twilio SMS messages in a Google Spreadsheet</h1>
+                    <p>Use Twilio and Google Spreadsheets to build your own	applications to do SMS polling, SMS voting, keyword marketing, expense tracking, time tracking, and more.</p>
+                    <p>Need help? <a href="https://github.com/devinrader/TwilioSheet/blob/master/README.md">See here for instructions</a></p>
+                </div>
+            </div>
+            {% elif state == 'error' %}
+            <div class="row">
+                <div class="col-md-12">
+                    {{ message }}
+                    <br /><br />
+                    Maybe another look at <a href="https://github.com/devinrader/TwilioSheet/blob/master/README.md">the instructions</a> would help?
+                </div>
+            </div>
+            {% elif state == 'valid-submission' %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>It worked!</h2>
+                    <p>You're almost done.</p>
+                    <p>Follow the steps below and when your Twilio number is sent an SMS, your spreadsheet will be updated with the following information:</p>
+                    <ul>
+                        {% for parameter in parameters_found %}
+                        <li>{{ parameter }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p>Use this URL as the "SMS Request URL" for your Twilio number:</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="url" id="sms-request-url" class="form-control" value="{{sms_request_url}}" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="copy-button" data-clipboard-target="sms-request-url">Copy to Clipboard</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+        </div> <!-- /container -->
+
+        <div class="footer">
+        </div>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster
+        -->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.1/ZeroClipboard.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var client = new ZeroClipboard($('#copy-button'));
+
+                client.on("ready", function (readyEvent) {
+                    client.on("aftercopy", function (event) {
+                        // `this` === `client`
+                        // `event.target` === the element that was clicked
+                    });
+                });
+            });
+        </script>
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36641904-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        </script>
+    </body>
 </html>

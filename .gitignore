@@ -27,4 +27,13 @@ pip-log.txt
 .mr.developer.cfg
 
 # Heroku
-venv
+env
+
+# Visual Studio
+*.sln
+*.suo
+*.pyproj
+*.user
+bin/
+obj/
+*.pubxml
